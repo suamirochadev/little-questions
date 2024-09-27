@@ -5,17 +5,17 @@ import 'package:littlequestions/congratulation.dart';
 import 'package:littlequestions/questionnaire.dart';
 
 void main() {
-  runApp(const littleQuestions());
+  runApp(const LittleQuestions());
 }
 
-class littleQuestions extends StatefulWidget {
-  const littleQuestions({super.key});
+class LittleQuestions extends StatefulWidget {
+  const LittleQuestions({super.key});
 
   @override
-  State<littleQuestions> createState() => _littleQuestionsState();
+  State<LittleQuestions> createState() => _LittleQuestionsState();
 }
 
-class _littleQuestionsState extends State<littleQuestions> {
+class _LittleQuestionsState extends State<LittleQuestions> {
   var _selectedQuestion = 0;
   var _totalScore = 0;
 
@@ -82,19 +82,28 @@ class _littleQuestionsState extends State<littleQuestions> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        colorSchemeSeed: Colors.purpleAccent,
+        ),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: const Text('littlequestions'),
+            title: const Text('Little Questions'),
           ),
-          body: hasSelectedQuestion
-              ? Questionnaire(
-                  questions: _questions,
-                  selectedQuestion: _selectedQuestion,
-                  answer: answer,
-                )
-              : Congratulation(score: _totalScore, restart: restart)),
+          body: SafeArea(
+            child: Column(
+              children: [
+                hasSelectedQuestion
+                    ? Questionnaire(
+                        questions: _questions,
+                        selectedQuestion: _selectedQuestion,
+                        answer: answer,
+                      )
+                    : Congratulation(score: _totalScore, restart: restart),
+              ],
+            ),
+          )),
     );
   }
 }
